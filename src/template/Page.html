@@ -16,11 +16,26 @@
             console.log(filename)
             google.script.run.withFailureHandler((e)=>{alert(e)}).importCSVFromGoogleDrive(filename)
         }
+        function changeDate(){
+            google.script.run.withFailureHandler((e)=>{alert(e)}).changeDate();
+        }
+        function clearBg(){
+            google.script.run.withFailureHandler((e)=>{alert(e)}).clearBgColor()
+        }
+        function findAll(){
+            let data=document.getElementById("find").value;
+            console.log(data)
+            google.script.run.withFailureHandler((e)=>{alert(e)}).findAll(data)
+        }
+        function findAllnReplace(){
+            let data=document.getElementById("find1").value;
+            let newdata=document.getElementById("replace1").value;
+            console.log(data)
+            google.script.run.withFailureHandler((e)=>{alert(e)}).findAllnReplace(data,newdata)
+        }
     </script>
-    <!--Enter filename:
-    <input type="text">
-    <input type="button" value="Open" onclick="google.script.run.withSuccessHandler(()=>{alert('data imported')}).importCSVFromGoogleDrive()" />-->
-    
+    <label class="label">Import Data</label>
+    <!--Import data from google drive-->
     <div class="box">
         <div class="field">
             <label class="label">File name</label>
@@ -29,6 +44,42 @@
             </div>
         </div>
         <button class="button is-primary" onclick="importData()">Import</button>
+    </div>
+    <label class="label">Manipulate</label>
+    <!--Change date format-->
+    <div class="box">
+        <div class="field">
+            <label class="label">New Date</label>
+            <div class="control">
+                <input type="text" class="input" id="date" placeholder="e.g. dd-mm-yyyy">
+            </div>
+        </div>
+        <button class="button is-primary" onclick="changeDate()">New Date</button>
+    </div>
+    <label class="label">Find</label>
+    <!--Find all-->
+    <div class="box">
+        <div class="field">
+            <label class="label">Find data</label>
+            <div class="control">
+                <input type="text" class="input" id="find" placeholder="e.g. kittycat">
+            </div>
+        </div>
+        <button class="button is-primary" onclick="findAll()">Find All</button>
+    </div>
+    <!--Find all and replace-->
+    <div class="box">
+        <div class="field">
+            <label class="label">Find data</label>
+            <div class="control">
+                <input type="text" class="input" id="find1" placeholder="e.g. kittycat">
+            </div>
+            <label class="label">Replace</label>
+            <div class="control">
+                <input type="text" class="input" id="replace1" placeholder="e.g. tigercat">
+            </div>
+        </div>
+        <button class="button is-primary" onclick="findAllnReplace()">Find All</button>
     </div>
 </body>
 
