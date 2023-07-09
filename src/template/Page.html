@@ -17,7 +17,9 @@
             google.script.run.withFailureHandler((e)=>{alert(e)}).importCSVFromGoogleDrive(filename)
         }
         function changeDate(){
-            google.script.run.withFailureHandler((e)=>{alert(e)}).withSuccessHandler((d)=>{alert(d)}).changeDate();
+            let fmt=document.getElementById("fmt").value;
+            console.log(fmt)
+            google.script.run.withFailureHandler((e)=>{alert(e)}).changeDate(fmt);
         }
         function clearBg(){
             google.script.run.withFailureHandler((e)=>{alert(e)}).clearBgColor()
@@ -51,7 +53,7 @@
         <div class="field">
             <label class="label">New Date</label>
             <div class="control">
-                <input type="text" class="input" id="date" placeholder="e.g. dd-mm-yyyy">
+                <input type="text" class="input" id="fmt" placeholder="e.g. dd-mm-yyyy">
             </div>
         </div>
         <button class="button is-primary" onclick="changeDate()">New Date</button>

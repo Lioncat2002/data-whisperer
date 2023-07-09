@@ -12,37 +12,35 @@ function findAll(data) {
   }
 }
 
-function changeDate(){
-  var sheet = SpreadsheetApp.getActiveSheet();
+function changeDate(fmt){
+  let ss=SpreadsheetApp.getActive();
+  let sheet = ss.getActiveSheet();
   const range = sheet.getActiveRange();
-  const values = range.getValues();
-  var data = {
-    "data":JSON.stringify(values),
-    "query":"honk"
-  };
-  var payload = JSON.stringify(data);
-  var options = {
-    "method" : "POST",
-    "contentType" : "application/json",
-    "payload" : payload
-  };
-  var r=UrlFetchApp.fetch("https://datawhisperer.fly.dev/query",options)
-  return r.getContentText()
+  let values = range.getValues();
+  for (var i = 0; i < values.length; i++) {
+    for (var j = 0; j < values[0].length; j++) {
+        values[i][j]=new Date(values[i][j])  
+    }
+  }
+  //Sheets.Spreadsheets.Values.batchUpdate({registration_date:values},ss.getId())
+  sheet.getActiveRange().setValues(values).setNumberFormat(fmt)
 }
 
 function findAllnReplace(data,newdata) {
   var sheet = SpreadsheetApp.getActiveSheet();
   const range = sheet.getActiveRange();
-  const values = range.getValues();
-
+  var values = range.getValues();
   for (var i = 0; i < values.length; i++) {
     for (var j = 0; j < values[0].length; j++) {
       if (values[i][j] == data) {
-        sheet.getActiveRange().getCell(i+1,j+1).setValue(newdata);
+        values[i][j]=newdata;
+        //sheet.getActiveRange().getCell(i+1,j+1).setValue(newdata);
         sheet.getActiveRange().getCell(i+1,j+1).setBackground("red");
       }
     }
   }
+  sheet.getActiveRange().setValues(values);
+  //sheet.getActiveRange().setBackgrounds()
 }
 
 
