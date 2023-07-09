@@ -17,7 +17,7 @@
             google.script.run.withFailureHandler((e)=>{alert(e)}).importCSVFromGoogleDrive(filename)
         }
         function changeDate(){
-            google.script.run.withFailureHandler((e)=>{alert(e)}).changeDate();
+            google.script.run.withFailureHandler((e)=>{alert(e)}).withSuccessHandler((d)=>{alert(d)}).changeDate();
         }
         function clearBg(){
             google.script.run.withFailureHandler((e)=>{alert(e)}).clearBgColor()
