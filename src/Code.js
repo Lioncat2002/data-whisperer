@@ -17,11 +17,11 @@ function changeDate(fmt){
   let sheet = ss.getActiveSheet();
   const range = sheet.getActiveRange();
   let values = range.getValues();
-  for (var i = 0; i < values.length; i++) {
-    for (var j = 0; j < values[0].length; j++) {
-        values[i][j]=new Date(values[i][j])  
-    }
-  }
+  //for (var i = 0; i < values.length; i++) {
+  //  for (var j = 0; j < values[0].length; j++) {
+  //      values[i][j]=new Date(values[i][j])  
+  //  }
+  //}
   //Sheets.Spreadsheets.Values.batchUpdate({registration_date:values},ss.getId())
   sheet.getActiveRange().setValues(values).setNumberFormat(fmt)
 }
@@ -55,17 +55,6 @@ function importCSVFromGoogleDrive(data) {
   Sheets.Spreadsheets.Values.append({values:csvData},ss.getId(),sheet.getSheetName(),{valueInputOption: "USER_ENTERED"});
   
   return true;
-}
-
-function importCSVFromWeb(url) {
-  // Provide the full URL of the CSV file.
-  var csvUrl = 'https://files.catbox.moe/loqd7d.csv';
-  var csvContent = UrlFetchApp.fetch(url).getContentText();
-  var data = Utilities.parseCsv(csvContent);
-
-  var sheet = SpreadsheetApp.getActiveSheet();
-  sheet.insertRowsAfter(sheet.getLastRow(), data.length)
-  sheet.getRange(1, 1, data.slice(0, 10).length, data[0].length).setValues(data.slice(0, 10))
 }
 
 function onOpen() {

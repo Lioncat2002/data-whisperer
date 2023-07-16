@@ -16,32 +16,34 @@
             var reader=new FileReader();
             reader.readAsText(file[0]);
             let csv="";
-            document.querySelector("#progress").innerHTML='<div id="progress-bar">importing...<br><progress class="progress is-small is-primary" max="100">15%</progress></div>'
+            document.querySelector("#import-progress").innerHTML='<div id="import-progress-bar">importing...<br><progress class="progress is-small is-primary" max="100">15%</progress></div>'
             reader.onload=(event)=>{
                 csv=event.target.result;
-                console.log(csv)
-                google.script.run.withFailureHandler((e)=>{alert(e)}).withSuccessHandler((d)=>{document.querySelector("#progress").removeChild(document.querySelector("#progress-bar"))}).importCSVFromGoogleDrive(csv)
+                google.script.run.withFailureHandler((e)=>{alert(e)}).withSuccessHandler((d)=>{document.querySelector("#import-progress").removeChild(document.querySelector("#import-progress-bar"))}).importCSVFromGoogleDrive(csv)
             }
             
         }
         function changeDate(){
             let fmt=document.getElementById("fmt").value;
-            console.log(fmt)
-            google.script.run.withFailureHandler((e)=>{alert(e)}).changeDate(fmt);
+            document.querySelector("#date-progress").innerHTML='<div id="date-progress-bar">changing...<br><progress class="progress is-small is-primary" max="100">15%</progress></div>'
+            
+            google.script.run.withFailureHandler((e)=>{alert(e)}).withSuccessHandler(()=>{document.querySelector("#date-progress").removeChild(document.querySelector("#date-progress-bar"))}).changeDate(fmt);
         }
         function clearBg(){
             google.script.run.withFailureHandler((e)=>{alert(e)}).clearBgColor()
         }
         function findAll(){
             let data=document.getElementById("find").value;
-            console.log(data)
-            google.script.run.withFailureHandler((e)=>{alert(e)}).findAll(data)
+            document.querySelector("#find-progress").innerHTML='<div id="find-progress-bar">changing...<br><progress class="progress is-small is-primary" max="100">15%</progress></div>'
+            
+            google.script.run.withFailureHandler((e)=>{alert(e)}).withSuccessHandler(()=>{document.querySelector("#find-progress").removeChild(document.querySelector("#find-progress-bar"))}).findAll(data)
         }
         function findAllnReplace(){
             let data=document.getElementById("find1").value;
             let newdata=document.getElementById("replace1").value;
-            console.log(data)
-            google.script.run.withFailureHandler((e)=>{alert(e)}).findAllnReplace(data,newdata)
+            document.querySelector("#replace-progress").innerHTML='<div id="replace-progress-bar">changing...<br><progress class="progress is-small is-primary" max="100">15%</progress></div>'
+            
+            google.script.run.withFailureHandler((e)=>{alert(e)}).withSuccessHandler(()=>{document.querySelector("#replace-progress").removeChild(document.querySelector("#replace-progress-bar"))}).findAllnReplace(data,newdata)
         }
     </script>
     <label class="label">Import Data</label>
@@ -54,7 +56,7 @@
             </div>
         </div>
         <button class="button is-primary" onclick="importData()">Import</button>
-        <div class="" id="progress"></div>
+        <div class="" id="import-progress"></div>
     </div>
     <label class="label">Manipulate</label>
     <!--Change date format-->
@@ -66,6 +68,7 @@
             </div>
         </div>
         <button class="button is-primary" onclick="changeDate()">New Date</button>
+        <div class="" id="date-progress"></div>
     </div>
     <label class="label">Find</label>
     <!--Find all-->
@@ -77,6 +80,7 @@
             </div>
         </div>
         <button class="button is-primary" onclick="findAll()">Find All</button>
+        <div class="" id="find-progress"></div>
     </div>
     <!--Find all and replace-->
     <div class="box">
@@ -91,6 +95,7 @@
             </div>
         </div>
         <button class="button is-primary" onclick="findAllnReplace()">Find All</button>
+        <div class="" id="replace-progress"></div>
     </div>
 </body>
 
