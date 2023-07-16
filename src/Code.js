@@ -44,15 +44,17 @@ function findAllnReplace(data,newdata) {
 }
 
 
-function importCSVFromGoogleDrive(filename) {
-  var file = DriveApp.getFilesByName(filename).next();
-  var csvData = Utilities.parseCsv(file.getBlob().getDataAsString());
+function importCSVFromGoogleDrive(data) {
+  //var file = DriveApp.getFilesByName(filename).next();
+  
+  var csvData = Utilities.parseCsv(data);
   var ss=SpreadsheetApp.getActive();
   var sheet = ss.getActiveSheet();
   //append data
   //using spread sheets api for zuper fast appending
   Sheets.Spreadsheets.Values.append({values:csvData},ss.getId(),sheet.getSheetName(),{valueInputOption: "USER_ENTERED"});
- 
+  
+  return true;
 }
 
 function importCSVFromWeb(url) {
